@@ -1,0 +1,13 @@
+{
+  "name": "test",
+  "type": "FOOD",
+  "animalType": "DOG",
+  "brand": "test",
+  "description": "1234567890",
+  "stock": 1,
+  "price": 1.00,
+  "sizeWeight": 1.00
+}
+
+
+
