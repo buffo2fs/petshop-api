@@ -173,7 +173,7 @@ public class ProductServiceImpl implements ProductService {
     /**
      * Helper: load a product by id or throw if absent.
      *
-     * Recommendation: use {@link ProductRepository#findById(Long)} with Optional
+     * Recommendation: use {@link ProductRepository#getById(Object)} with Optional
      * handling to make 'not found' behavior explicit and avoid deprecated calls.
      */
     private Product getProductIfExist(long id) {

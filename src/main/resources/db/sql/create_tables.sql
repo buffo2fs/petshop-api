@@ -16,10 +16,12 @@ deleted_product BOOLEAN NOT NULL DEFAULT FALSE
 CREATE TABLE tb_rating (
 rating_id BIGSERIAL PRIMARY KEY,
 product_id BIGINT NOT NULL,
-stars DECIMAL(2,1) NOT NULL,
+stars VARCHAR (8) NOT NULL,
 client VARCHAR(50) NOT NULL,
 comments VARCHAR(255),
-created_at TIMESTAMP NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+last_update TIMESTAMP,
+deleted_rating BOOLEAN NOT NULL DEFAULT FALSE,
 CONSTRAINT fk_product_rating FOREIGN KEY (product_id) REFERENCES tb_products (product_id)
 );
 
@@ -29,7 +31,7 @@ total_items_count INTEGER NOT NULL,
 client VARCHAR(50) NOT NULL,
 total_amount DECIMAL(10,2),
 status  VARCHAR(20) NOT NULL,
-order_creation TIMESTAMP NOT NULL,
+order_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 order_update TIMESTAMP,
 deleted_order BOOLEAN NOT NULL DEFAULT FALSE
 );

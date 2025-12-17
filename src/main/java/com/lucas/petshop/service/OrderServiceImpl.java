@@ -3,10 +3,6 @@ package com.lucas.petshop.service;
 
 import com.lucas.petshop.dto.OrderRequestDTO;
 import com.lucas.petshop.dto.OrderResponseDTO;
-import com.lucas.petshop.dto.ProductRequestDTO;
-import com.lucas.petshop.mapper.ProductMapper;
-import com.lucas.petshop.model.Product;
-import com.lucas.petshop.service.OrderStatusEnum;
 import com.lucas.petshop.exception.OrderStatusInvalid;
 import com.lucas.petshop.mapper.OrderMapper;
 import com.lucas.petshop.repository.OrderRepository;
@@ -16,7 +12,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.StyledEditorKit;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
