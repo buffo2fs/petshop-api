@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Size;
 import com.lucas.petshop.service.ProductTypeEnum;
 import com.lucas.petshop.service.ProductAnimalTypeEnum;
 
+import java.math.BigDecimal;
+
 /**
  * Request DTO used to create or update Product entities via the API.
  *
@@ -57,7 +59,7 @@ public record ProductRequestDTO (
         // Product price. Required and must be a positive number (> 0).
         @NotNull(message = "PRODUCT PRICE IS REQUIRED")
         @Positive(message = "PRODUCT PRICE SHOULD BE GREATER THAN 0 (ZERO)")
-        Double price,
+        BigDecimal price,
 
         // Product size or weight measurement. Required and must be a positive number (> 0).
         @NotNull(message = "PRODUCT SIZE AND/OR WEIGHT IS REQUIRED")

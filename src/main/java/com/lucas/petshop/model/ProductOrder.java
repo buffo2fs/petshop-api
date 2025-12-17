@@ -6,6 +6,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -28,12 +29,14 @@ public class ProductOrder {
     private Long id;
 
     // Reference to the product (foreign key to products table)
-    @Column(name = "product_id", nullable = false)
-    private Long productId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
     // Reference to the order that contains this product (foreign key to orders table)
-    @Column(name = "order_id", nullable = false)
-    private Long orderId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
 
     // Quantity of this product in the order
     @Column(name = "quantity", nullable = false)
@@ -41,7 +44,7 @@ public class ProductOrder {
 
     // Unit price applied for this product in the order (snapshot of price at order time)
     @Column(name = "unit_price", nullable = false)
-    private Double unitPrice;
+    private BigDecimal unitPrice;
 
     // Timestamp when this ProductOrder was created (auto-populated by Hibernate)
     @CreationTimestamp

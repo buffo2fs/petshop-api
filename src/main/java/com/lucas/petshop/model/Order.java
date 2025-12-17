@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * JPA entity that represents a customer order in the system.
@@ -58,5 +59,8 @@ public class Order {
     // Soft-delete flag: when true the order is considered deleted/archived
     @Column(name = "deleted_order", nullable = false)
     private Boolean deletedOrder = false;
+
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    private List<ProductOrder> productOrders;
 
 }

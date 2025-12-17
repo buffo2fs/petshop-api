@@ -7,7 +7,10 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * JPA entity representing a product in the pet shop domain.
@@ -60,7 +63,7 @@ public class Product {
 
     // Retail price for the product (use a monetary type/strategy if needed in future)
     @Column(name = "price", nullable = false)
-    private Double price;
+    private BigDecimal price;
 
     // Size or weight metric for the product (units depend on domain conventions)
     @Column(name = "size_weight", nullable = false)
@@ -80,6 +83,9 @@ public class Product {
     // and should typically be excluded from normal queries.
     @Column(name = "deleted_product", nullable = false)
     private Boolean deletedProduct = false;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<ProductOrder> productOrders;
 
 
 }

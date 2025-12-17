@@ -3,6 +3,8 @@ package com.lucas.petshop.dto;
 import com.lucas.petshop.service.ProductAnimalTypeEnum;
 import com.lucas.petshop.service.ProductTypeEnum;
 
+import java.math.BigDecimal;
+
 /**
  * Response DTO for Product resources returned by the API.
  *
@@ -28,7 +30,7 @@ public record ProductResponseDTO (
         String description,
 
         // Retail price for the product
-        Double price,
+        BigDecimal price,
 
         // Size or weight metric for the product (units depend on domain conventions)
         Double sizeWeight

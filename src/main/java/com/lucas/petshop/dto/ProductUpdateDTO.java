@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -48,7 +49,7 @@ public record ProductUpdateDTO(
 
         // Optional price. Must be positive when provided.
         @Positive(message = "PRODUCT PRICE SHOULD BE HIGHER THAN 0 (ZERO)")
-        Double price,
+        BigDecimal price,
 
         // Optional size/weight. Must be positive when provided.
         @Positive(message = "PRODUCT SIZE AND WEIGHT SHOULD BE HIGHER THAN 0 (ZERO)")
