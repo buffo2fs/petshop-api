@@ -60,5 +60,7 @@ public class Order {
     @Column(name = "deleted_order", nullable = false)
     private Boolean deletedOrder = false;
 
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    private List<ProductOrder> productOrders;
 
 }
