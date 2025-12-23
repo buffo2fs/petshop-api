@@ -83,9 +83,4 @@ public class Product {
     // and should typically be excluded from normal queries.
     @Column(name = "deleted_product", nullable = false)
     private Boolean deletedProduct = false;
-
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private List<ProductOrder> productOrders;
-
-
 }

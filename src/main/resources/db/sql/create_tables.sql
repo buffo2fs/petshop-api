@@ -36,15 +36,16 @@ order_update TIMESTAMP,
 deleted_order BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE tb_product_order (
-product_order_id BIGSERIAL PRIMARY KEY,
-product_id BIGINT NOT NULL,
-order_id BIGINT NOT null,
-quantity INTEGER,
-unit_price DECIMAL(10,2),
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-last_update TIMESTAMP,
-deleted_product_order BOOLEAN NOT NULL DEFAULT FALSE,
-CONSTRAINT fk_product_order FOREIGN KEY (product_id) REFERENCES tb_products (product_id),
-CONSTRAINT fk_order_product FOREIGN KEY (order_id) REFERENCES tb_orders (order_id)
+CREATE TABLE tb_products_orders (
+    product_order_id BIGSERIAL PRIMARY KEY,
+    product_id BIGINT NOT NULL,
+    order_id BIGINT NOT NULL,
+    quantity INT NOT NULL,
+    unit_price DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_update TIMESTAMP,
+    deleted_product_order BOOLEAN DEFAULT FALSE,
+
+    CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES tb_products(product_id),
+    CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES tb_orders(order_id)
 );

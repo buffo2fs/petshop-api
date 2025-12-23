@@ -1,12 +1,15 @@
 package com.lucas.petshop.dto;
 
 import com.lucas.petshop.service.RatingStarsEnum;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-public record RatingResponseDTO(
-        RatingStarsEnum stars,
-        String client,
-        String comments,
-        LocalDateTime dateTime
-) {}
+@Data
+public class RatingResponseDTO {
+    RatingStarsEnum stars;
+    String client;
+    String comments;
+    LocalDateTime createdAt;
+}
+

@@ -26,17 +26,22 @@ public class RatingServiceImpl implements RatingService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private RatingMapper ratingMapper;
+
     @Override
     public List<RatingResponseDTO> getAllRatings(){
         var startTime = System.currentTimeMillis();
-        Timer.measure("[GET ALL RATINGS] - Successfully", startTime);
 
-        return ratingRepository.findAll()
+
+        List<RatingResponseDTO> result = ratingRepository.findAll()
                 .stream()
                 .filter(rating -> !Boolean.TRUE.equals(rating.getDeletedRating()))
-                .map(RatingMapper::toDTO)
+                .map(ratingMapper::toResponseDTO)
                 .collect(Collectors.toList());
 
+        Timer.measure("[GET ALL RATINGS] - Successfully", startTime);
+        return result;
     }
 
     @Override
@@ -50,7 +55,7 @@ public class RatingServiceImpl implements RatingService {
         }
 
         Timer.measure("[GET RATING BY ID] - Successfully", startTime);
-        return RatingMapper.toDTO(rating);
+        return ratingMapper.toResponseDTO(rating);
     }
 
     @Override
@@ -58,10 +63,12 @@ public class RatingServiceImpl implements RatingService {
     public void createRating(RatingRequestDTO dto) {
         var startTime = System.currentTimeMillis();
 
-        Product product = productRepository.findById(dto.productId())
+        Product product = productRepository.findById(dto.getProductId())
                 .orElseThrow(() -> new RuntimeException("PRODUCT NOT FOUND"));
 
-        Rating rating = RatingMapper.toEntity(dto, product);
+        Rating rating = ratingMapper.toEntity(dto);
+
+        rating.setProduct(product);
         ratingRepository.save(rating);
 
         Timer.measure("[CREATE RATING] - Successfully", startTime);
@@ -78,7 +85,7 @@ public class RatingServiceImpl implements RatingService {
             throw new RuntimeException("CANNOT UPDATE A DELETED RATING");
         }
 
-        updateEntityFromDto(existing, dto);
+        ratingMapper.updateEntityFromDto(dto, existing);
         existing.setLastUpdate(LocalDateTime.now());
 
         ratingRepository.save(existing);
@@ -99,21 +106,12 @@ public class RatingServiceImpl implements RatingService {
 
         existing.setDeletedRating(true);
         existing.setLastUpdate(LocalDateTime.now());
+        ratingRepository.save(existing);
     }
 
-    private Rating getRatingIfExists(long id) {
-        Rating rating = ratingRepository.getById(id);
-        if (rating == null) {
-            throw new RuntimeException("RATING NOT FOUND");
-        }
+    private Rating getRatingIfExists(Long id) {
+        return ratingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("RATING NOT FOUND"));
 
-        return rating;
-    }
-
-    private void updateEntityFromDto(Rating existing, RatingRequestDTO dto){
-
-        existing.setStars(dto.stars());
-        existing.setClient(dto.client());
-        existing.setComments(dto.comments());
     }
 }

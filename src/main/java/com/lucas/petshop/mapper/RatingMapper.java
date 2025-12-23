@@ -2,27 +2,24 @@ package com.lucas.petshop.mapper;
 
 import com.lucas.petshop.dto.RatingRequestDTO;
 import com.lucas.petshop.dto.RatingResponseDTO;
-import com.lucas.petshop.model.Product;
 import com.lucas.petshop.model.Rating;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
-public class RatingMapper {
+@Mapper (componentModel = "spring")
+public interface RatingMapper {
 
-    public static RatingResponseDTO toDTO(Rating rating) {
-        return new RatingResponseDTO(
-                rating.getStars(),
-                rating.getClient(),
-                rating.getComments(),
-                rating.getCreatedAt()
-        );
-    }
+    RatingResponseDTO toResponseDTO(Rating rating);
 
-    public static Rating toEntity(RatingRequestDTO dto, Product product){
-        Rating rating = new Rating();
-        rating.setProduct(product);
-        rating.setStars(dto.stars());
-        rating.setClient(dto.client());
-        rating.setComments(dto.comments());
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "lastUpdate", ignore = true)
+    @Mapping(target = "deletedRating", ignore = true)
+    @Mapping(target = "product", ignore = true)
+    Rating toEntity(RatingRequestDTO dto);
 
-        return rating;
-    }
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "lastUpdate", ignore = true)
+    @Mapping(target = "deletedRating", ignore = true)
+    void updateEntityFromDto(RatingRequestDTO dto, @MappingTarget Rating rating);
 }

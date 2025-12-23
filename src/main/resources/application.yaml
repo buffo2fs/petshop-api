@@ -21,3 +21,17 @@ server:
   port: 8080
   servlet:
     context-path: /petshop
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    env:
+      show-values: always
+    configprops:
+      show-values: always
