@@ -4,6 +4,7 @@ Petshop API is a RESTful API built with Java 21 and Spring Boot to manage a pet 
 
 The project follows clean architecture principles, using DTOs, mappers, services, and repositories to ensure maintainability, scalability, and clear separation of concerns.
 
+
 Project Overview
 
 The Petshop API simulates a real backend system for a pet shop, providing endpoints to:
@@ -22,6 +23,7 @@ Seed database data for development and testing
 
 This project was built with a strong focus on backend best practices, REST standards, and clean architecture.
 
+
 Architecture
 
 The application follows a layered architecture:
@@ -35,6 +37,7 @@ com.lucas.petshop
 ├── service      → Business logic
 ├── util         → Utility classes
 
+
 Layer Responsibilities
 Layer	Responsibility
 Controller	Handle HTTP requests and responses
@@ -43,6 +46,7 @@ Repository	Persistence using Spring Data JPA
 Model	Domain entities and relationships
 DTO	External API contracts
 Mapper	Convert between DTOs and entities
+
 Technologies
 
 Java 21
