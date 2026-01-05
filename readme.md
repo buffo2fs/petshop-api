@@ -164,23 +164,3 @@ Run automated tests using:
 ```bash
 ./mvnw test
 ```
-
----
-
-## Notes for Recruiters
-
-This project focuses exclusively on backend development topics such as API design, architecture, domain modeling, and code quality.
-
-There is no frontend layer by design.
-
----
-
-## Future Improvements
-
-- OpenAPI / Swagger documentation
-- Authentication and authorization
-- Pagination and filtering
-- Docker support
-- Global exception handling
-- Integration tests
-
