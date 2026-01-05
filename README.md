@@ -5,7 +5,7 @@
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
-A backend API built with **Java 21** and **Spring Boot** to manage a Petshop domain, focusing on **products**, **orders**, and **ratings**. The project follows a layered architecture using **DTOs**, **services**, and **controllers**, aiming for clarity, maintainability, and scalability.
+A backend API built with **Java 21** and **Spring Boot** to manage a Petshop domain. This is a **monolithic application**, centralizing the management of products, orders, and ratings into a single deployable unit to ensure data consistency and simplified architectural overhead.
 
 ---
 
@@ -40,20 +40,80 @@ The **Petshop Product API** simulates a real-world backend system for a petshop 
 
 ---
 
-## ⚙️ Running the Project
+## 🚀 Postman Collections
 
-### 1. Configure the database
-Ensure PostgreSQL is running or use the provided Docker configuration:
-```bash
-docker-compose up -d
-```
-### 2. Run the application
-```
-mvn spring-boot:run
-```
-Base URL: http://localhost:8080/petshop
+To facilitate testing and integration, Postman collections are included in this repository.
+
+* **Base URL:** `http://localhost:8080/petshop`
+* **Environment:** Ensure your local server is running before executing requests.
 
 ---
+
+## 🛠 API Reference
+
+### 1. Products API
+Manages the store's inventory of pet supplies.
+* **Endpoint:** `/products`.
+* **Methods:** Supports `GET`, `POST`, `PUT`, `DELETE`, and `PATCH`.
+* **Key Fields:** Includes `name`, `type` (e.g., FOOD), `animalType` (e.g., DOG), `brand`, `description`, `stock`, `price`, and `sizeWeight`.
+* **Sample Payload:**
+    ```json
+    {
+      "name": "test",
+      "type": "FOOD",
+      "animalType": "DOG",
+      "brand": "test",
+      "description": "1234567890",
+      "stock": 1,
+      "price": 1.00,
+      "sizeWeight": 1.00
+    }
+    ```.
+
+### 2. Orders API
+Handles customer transactions and tracking.
+* **Endpoint:** `/orders`.
+* **Methods:** Supports `GET`, `POST`, `PUT`, and `DELETE`.
+* **Order Statuses:** Includes `PENDING` and `IN_PROGRESS`.
+* **Structure:** Orders link to multiple products via an `items` array containing `productId` and `quantity`.
+* **Sample POST Payload:**
+    ```json
+    {
+      "client": "teste",
+      "status": "PENDING",
+      "items": [
+        { "productId": 1, "quantity": 10 },
+        { "productId": 2, "quantity": 10 }
+      ]
+    }
+    ```.
+
+### 3. Ratings API
+Collects customer feedback and quality scores.
+* **Endpoint:** `/ratings`.
+* **Methods:** Supports `GET`, `POST`, `PUT`, and `DELETE`.
+* **Rating Levels:** Uses an enum for `stars` (e.g., `ONE`).
+* **Sample Payload:**
+    ```json
+    {
+      "stars": "ONE",
+      "client": "teste",
+      "comments": "this is a rating test"
+    }
+    ```.
+
+---
+
+## 🧪 Automated Testing
+
+The collections include pre-configured test scripts to verify API responses:
+* **GET Requests:** Validates a `200 OK` status code.
+* **POST Requests:** Ensures a successful creation with status code `200` or `201`.
+* **PUT Requests:** Checks for codes `200`, `201`, or `204` to confirm updates.
+* **DELETE Requests:** Verifies deletion with codes `200`, `202`, or `204`.
+
+--- 
+
 
 ## 🔗 API Endpoints
 
@@ -114,10 +174,26 @@ The data model is centered around three main entities:
 src/main/java/com/lucas/petshop
 ├── controller   # Web Layer (REST Controllers)
 ├── dto          # Data Transfer Objects
+├── enums        # Enumerations (Domain constants)
 ├── service      # Business Logic
 ├── repository   # Data Access Layer
 ├── mapper       # Entity-DTO Mapping
 ├── entity       # Database Models
 └── exception    # Global Exception Handling
+```
+
+--- 
+
+## ⚙️ Running the Project
+
+### 1. Configure the database
+Ensure PostgreSQL is running or use the provided Docker configuration:
+```bash
+docker-compose up -d
+```
+### 2. Run the application
+```
+mvn spring-boot:run
+```
 
 
