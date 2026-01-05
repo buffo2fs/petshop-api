@@ -1,7 +1,7 @@
 package com.lucas.petshop.dto;
 
-import com.lucas.petshop.service.ProductAnimalTypeEnum;
-import com.lucas.petshop.service.ProductTypeEnum;
+import com.lucas.petshop.enums.ProductAnimalTypeEnum;
+import com.lucas.petshop.enums.ProductTypeEnum;
 import lombok.Data;
 
 import java.math.BigDecimal;

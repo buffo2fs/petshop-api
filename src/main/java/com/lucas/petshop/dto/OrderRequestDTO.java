@@ -1,6 +1,6 @@
 package com.lucas.petshop.dto;
 
-import com.lucas.petshop.service.OrderStatusEnum;
+import com.lucas.petshop.enums.OrderStatusEnum;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 

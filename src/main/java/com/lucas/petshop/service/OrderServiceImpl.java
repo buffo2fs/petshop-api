@@ -10,6 +10,7 @@ import com.lucas.petshop.model.Order;
 import com.lucas.petshop.repository.ProductOrderRepository;
 import com.lucas.petshop.repository.ProductRepository;
 import com.lucas.petshop.util.Timer;
+import com.lucas.petshop.enums.OrderStatusEnum;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 

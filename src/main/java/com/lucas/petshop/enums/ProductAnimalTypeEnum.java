@@ -1,4 +1,4 @@
-package com.lucas.petshop.service;
+package com.lucas.petshop.enums;
 
 public enum ProductAnimalTypeEnum {
     DOG,

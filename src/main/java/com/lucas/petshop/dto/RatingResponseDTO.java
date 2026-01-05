@@ -1,6 +1,6 @@
 package com.lucas.petshop.dto;
 
-import com.lucas.petshop.service.RatingStarsEnum;
+import com.lucas.petshop.enums.RatingStarsEnum;
 import lombok.Data;
 
 import java.time.LocalDateTime;

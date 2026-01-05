@@ -1,16 +1,14 @@
 package com.lucas.petshop.model;
 
-import com.lucas.petshop.service.ProductAnimalTypeEnum;
-import com.lucas.petshop.service.ProductTypeEnum;
+import com.lucas.petshop.enums.ProductAnimalTypeEnum;
+import com.lucas.petshop.enums.ProductTypeEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * JPA entity representing a product in the pet shop domain.

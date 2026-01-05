@@ -1,11 +1,10 @@
 package com.lucas.petshop.model;
 
-import com.lucas.petshop.service.RatingStarsEnum;
+import com.lucas.petshop.enums.RatingStarsEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 

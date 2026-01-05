@@ -1,6 +1,6 @@
 package com.lucas.petshop.model;
 
-import com.lucas.petshop.service.OrderStatusEnum;
+import com.lucas.petshop.enums.OrderStatusEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;

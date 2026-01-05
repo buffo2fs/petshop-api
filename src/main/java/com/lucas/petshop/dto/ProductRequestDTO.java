@@ -4,8 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
-import com.lucas.petshop.service.ProductTypeEnum;
-import com.lucas.petshop.service.ProductAnimalTypeEnum;
+import com.lucas.petshop.enums.ProductTypeEnum;
+import com.lucas.petshop.enums.ProductAnimalTypeEnum;
 import lombok.Data;
 
 import java.math.BigDecimal;
