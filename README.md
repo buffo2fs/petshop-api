@@ -68,7 +68,7 @@ Manages the store's inventory of pet supplies.
       "price": 1.00,
       "sizeWeight": 1.00
     }
-    ```.
+    ```
 
 ### 2. Orders API
 Handles customer transactions and tracking.
@@ -86,7 +86,7 @@ Handles customer transactions and tracking.
         { "productId": 2, "quantity": 10 }
       ]
     }
-    ```.
+    ```
 
 ### 3. Ratings API
 Collects customer feedback and quality scores.
@@ -100,7 +100,7 @@ Collects customer feedback and quality scores.
       "client": "teste",
       "comments": "this is a rating test"
     }
-    ```.
+    ```
 
 ---
 
