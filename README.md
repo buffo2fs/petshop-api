@@ -1,51 +1,53 @@
 Petshop API
 
-Petshop API is a RESTful API built with Java 21 and Spring Boot to manage a pet shop domain, including products, orders, order items, and product ratings.
+Petshop API is a RESTful backend application built with Java 21 and Spring Boot, designed to model a pet shop domain and demonstrate backend development best practices.
 
-The project follows clean architecture principles, using DTOs, mappers, services, and repositories to ensure maintainability, scalability, and clear separation of concerns.
+The project focuses on clean code organization, clear separation of concerns, and realistic domain modeling commonly found in production backend systems.
 
+Purpose
 
-Project Overview
+This project was created as a backend portfolio application to showcase:
 
-The Petshop API simulates a real backend system for a pet shop, providing endpoints to:
+RESTful API design
 
-Manage products and their categories
+Layered architecture
 
-Create and track orders
+DTO-based communication
 
-Handle order items using a many-to-many relationship
+Domain modeling with enums
 
-Register and retrieve product ratings
+JPA relationships, including many-to-many associations
 
-Apply enums for strong domain modeling
-
-Seed database data for development and testing
-
-This project was built with a strong focus on backend best practices, REST standards, and clean architecture.
-
+Clean and maintainable project structure
 
 Architecture
 
-The application follows a layered architecture:
+The application follows a layered architecture with well-defined responsibilities.
 
 com.lucas.petshop
-├── controller   → REST endpoints
-├── dto          → API request/response models
-├── mapper       → DTO ↔ Entity conversions
-├── model        → JPA entities & composite keys
-├── repository   → Database access (JPA)
-├── service      → Business logic
-├── util         → Utility classes
-
+├── controller   // REST endpoints
+├── dto          // Request and response models
+├── exception    // Custom exceptions
+├── mapper       // DTO ↔ Entity mapping (MapStruct)
+├── model        // JPA entities and domain enums
+├── repository   // Persistence layer (Spring Data JPA)
+├── service      // Business logic (interfaces and implementations)
+├── util         // Utility classes
+└── PetshopApplication
 
 Layer Responsibilities
-Layer	Responsibility
-Controller	Handle HTTP requests and responses
-Service	Business rules and orchestration
-Repository	Persistence using Spring Data JPA
-Model	Domain entities and relationships
-DTO	External API contracts
-Mapper	Convert between DTOs and entities
+
+Controller: Handles HTTP requests and responses
+
+Service: Contains business logic and orchestration
+
+Repository: Database access using Spring Data JPA
+
+DTO: Defines external API contracts
+
+Mapper: Converts between DTOs and entities
+
+Model: Domain entities, relationships, and enums
 
 Technologies
 
@@ -53,7 +55,7 @@ Java 21
 
 Spring Boot
 
-Spring Web (REST)
+Spring Web MVC
 
 Spring Data JPA / Hibernate
 
@@ -61,34 +63,35 @@ PostgreSQL
 
 Maven
 
-YAML configuration
+MapStruct
 
-JSON database seed files
+Lombok
 
 Domain Model
-Main Entities
+
+Main entities:
 
 Product
 
 Order
 
-ProductOrder (join table)
-
 Rating
+
+ProductOrder (join entity)
 
 Relationships
 
-An Order contains multiple Products
+An order can contain multiple products
 
-A Product can belong to multiple Orders
+A product can belong to multiple orders
 
-The many-to-many relationship is handled by ProductOrder using a composite key
+The many-to-many relationship is handled via a join entity with a composite key
 
-A Product can have multiple Ratings
+A product can have multiple ratings
 
-Enums (Strong Domain Modeling)
+Enums
 
-The project uses enums to avoid magic strings and enforce consistency:
+Enums are used to ensure strong domain modeling and consistency:
 
 OrderStatusEnum
 
@@ -98,123 +101,60 @@ ProductAnimalTypeEnum
 
 RatingStarsEnum
 
+API Features
+
+Product management (CRUD)
+
+Order creation and retrieval
+
+Many-to-many order–product association
+
+Product ratings
+
+DTO-based request and response handling
+
 API Endpoints
 Products
-Method	Endpoint	Description
-GET	/products	List all products
-GET	/products/{id}	Get product by ID
-POST	/products	Create a product
-PUT	/products/{id}	Update a product
-DELETE	/products/{id}	Delete a product
+
+GET /products
+
+GET /products/{id}
+
+POST /products
+
+PUT /products/{id}
+
+DELETE /products/{id}
+
 Orders
-Method	Endpoint	Description
-GET	/orders	List all orders
-GET	/orders/{id}	Get order by ID
-POST	/orders	Create a new order
+
+GET /orders
+
+GET /orders/{id}
+
+POST /orders
+
 Ratings
-Method	Endpoint	Description
-GET	/ratings	List ratings
-POST	/ratings	Create a rating
-DTO and Mapper Strategy
 
-The API never exposes entities directly.
+GET /ratings
 
-Controllers receive Request DTOs
-
-Services return Response DTOs
-
-Mappers handle conversions:
-
-ProductMapper
-
-OrderMapper
-
-RatingMapper
-
-This approach ensures:
-
-Encapsulation
-
-API stability
-
-Easier future changes
-
-Database
-SQL Schema
-
-The database structure is defined in:
-
-src/main/resources/db/sql/create_tables.sql
-
-Seed Data
-
-Preloaded JSON data for development and testing:
-
-src/main/resources/db/seed/
-├── products.json
-├── order.json
-├── product_order.json
-└── ratings.json
+POST /ratings
 
 Configuration
 
-Main configuration file:
+Application configuration is defined in application.yaml, including database connection and JPA settings.
 
-src/main/resources/application.yaml
-
-
-Example configuration:
-
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/petshop
-    username: postgres
-    password: postgres
-  jpa:
-    hibernate:
-      ddl-auto: none
-    show-sql: true
+PostgreSQL is used as the relational database.
 
 Running the Application
-Clone the repository
 git clone https://github.com/buffo2fs/petshop-api.git
 cd petshop-api
-
-Run with Maven
 ./mvnw spring-boot:run
 
-Or build the JAR
-./mvnw clean package
-java -jar target/petshop-api-*.jar
 
-
-The application will be available at:
+The application runs on:
 
 http://localhost:8080
 
 Testing
 ./mvnw test
-
-Future Improvements
-
-Swagger / OpenAPI documentation
-
-Authentication and authorization (JWT)
-
-Pagination and filtering
-
-Docker and Docker Compose
-
-Global exception handling
-
-Integration tests
-
-Contributing
-
-Contributions are welcome.
-Feel free to open issues or submit pull requests.
-
-License
-
-This project currently does not include a license.
-Consider adding MIT or Apache 2.0 if you plan to keep it open source.
