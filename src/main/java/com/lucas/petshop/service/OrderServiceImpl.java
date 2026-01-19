@@ -76,6 +76,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public Long createOrder(OrderRequestDTO dto) {
+
         long startTime = System.currentTimeMillis();
 
         Order order = orderMapper.toEntity(dto);
@@ -83,36 +84,53 @@ public class OrderServiceImpl implements OrderService {
         BigDecimal calculatedTotal = BigDecimal.ZERO;
         int calculatedItemsCount = 0;
 
+        if (dto.getItems() != null && !dto.getItems().isEmpty()) {
+            for (var itemDto : dto.getItems()) {
+
+                var product = productRepository.findById(itemDto.getProductId())
+                        .orElseThrow(() ->
+                                new RuntimeException("PRODUCT NOT FOUND: ID " + itemDto.getProductId())
+                        );
+
+                calculatedItemsCount += itemDto.getQuantity();
+
+                BigDecimal itemTotal =
+                        product.getPrice().multiply(BigDecimal.valueOf(itemDto.getQuantity()));
+
+                calculatedTotal = calculatedTotal.add(itemTotal);
+            }
+        }
+
+
+        order.setTotalItemsCount(calculatedItemsCount);
+        order.setTotalAmount(calculatedTotal.doubleValue());
+        order.setDeletedOrder(false);
+
         Order savedOrder = orderRepository.save(order);
+
 
         if (dto.getItems() != null && !dto.getItems().isEmpty()) {
             for (var itemDto : dto.getItems()) {
+
                 var product = productRepository.findById(itemDto.getProductId())
-                        .orElseThrow(() -> new RuntimeException("PRODUCT NOT FOUND: ID " + itemDto.getProductId()));
+                        .orElseThrow(() ->
+                                new RuntimeException("PRODUCT NOT FOUND: ID " + itemDto.getProductId())
+                        );
 
                 ProductOrder productOrder = new ProductOrder();
                 productOrder.setOrder(savedOrder);
                 productOrder.setProduct(product);
                 productOrder.setQuantity(itemDto.getQuantity());
-                productOrder.setUnitPrice(product.getPrice()); // BigDecimal de tb_products
+                productOrder.setUnitPrice(product.getPrice());
 
                 productOrderRepository.save(productOrder);
-
-                calculatedItemsCount += itemDto.getQuantity();
-
-                BigDecimal itemTotal = product.getPrice().multiply(BigDecimal.valueOf(itemDto.getQuantity()));
-                calculatedTotal = calculatedTotal.add(itemTotal);
             }
         }
-
-        savedOrder.setTotalItemsCount(calculatedItemsCount);
-        savedOrder.setTotalAmount(calculatedTotal.doubleValue());
-
-        orderRepository.save(savedOrder);
 
         Timer.measure("[CREATE ORDER] - Successfully", startTime);
         return savedOrder.getId();
     }
+
 
     //UPDATE ORDER
     @Override

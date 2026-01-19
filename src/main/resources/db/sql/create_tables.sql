@@ -29,7 +29,7 @@ CREATE TABLE tb_orders (
 order_id BIGSERIAL PRIMARY KEY,
 total_items_count INTEGER NOT NULL,
 client VARCHAR(50) NOT NULL,
-total_amount DECIMAL(10,2),
+total_amount DECIMAL(10,2) NOT NULL,
 status  VARCHAR(20) NOT NULL,
 order_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 order_update TIMESTAMP,
@@ -48,4 +48,32 @@ CREATE TABLE tb_products_orders (
 
     CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES tb_products(product_id),
     CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES tb_orders(order_id)
+);
+
+CREATE TABLE tb_users (
+    user_id BIGSERIAL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE tb_roles (
+    role_id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(30) NOT NULL UNIQUE
+);
+
+CREATE TABLE tb_user_roles (
+    user_id BIGINT NOT NULL,
+    role_id BIGINT NOT NULL,
+
+    PRIMARY KEY (user_id, role_id),
+
+    CONSTRAINT fk_user_roles_user
+        FOREIGN KEY (user_id)
+        REFERENCES tb_users (user_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_user_roles_role
+        FOREIGN KEY (role_id)
+        REFERENCES tb_roles (role_id)
+        ON DELETE CASCADE
 );

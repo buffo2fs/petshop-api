@@ -5,7 +5,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/petshop
     username: petshop
-    password: 12345
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -27,11 +27,11 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: "health,info,metrics"
   endpoint:
     health:
-      show-details: always
+      show-details: when_authorized
     env:
-      show-values: always
+      show-values: when_authorized
     configprops:
-      show-values: always
+      show-values: when_authorized

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class RatingResponseDTO {
+    Long product;
     RatingStarsEnum stars;
     String client;
     String comments;

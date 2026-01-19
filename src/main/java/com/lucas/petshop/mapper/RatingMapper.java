@@ -10,6 +10,7 @@ import org.mapstruct.MappingTarget;
 @Mapper (componentModel = "spring")
 public interface RatingMapper {
 
+    @Mapping(source = "product.id", target = "product")
     RatingResponseDTO toResponseDTO(Rating rating);
 
     @Mapping(target = "id", ignore = true)
